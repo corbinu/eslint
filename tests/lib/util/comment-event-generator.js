@@ -13,7 +13,7 @@ const assert = require("assert"),
     sinon = require("sinon"),
     espree = require("espree"),
     EventGeneratorTester = require("../../../lib/testers/event-generator-tester"),
-    estraverse = require("estraverse"),
+    Traverser = require("eslint-scope").Traverser,
     SourceCode = require("../../../lib/util/source-code"),
     NodeEventGenerator = require("../../../lib/util/node-event-generator"),
     CommentEventGenerator = require("../../../lib/util/comment-event-generator");
@@ -65,7 +65,9 @@ describe("NodeEventGenerator", () => {
         emitter.emit = sinon.spy(emitter.emit);
         generator = new CommentEventGenerator(generator, sourceCode);
 
-        estraverse.traverse(ast, {
+        const traverser = new Traverser();
+
+        traverser.traverse(ast, {
             enter(node) {
                 generator.enterNode(node);
             },

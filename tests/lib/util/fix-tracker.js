@@ -13,7 +13,7 @@ const assert = require("chai").assert,
     FixTracker = require("../../../lib/util/fix-tracker"),
     ruleFixer = require("../../../lib/util/rule-fixer"),
     SourceCode = require("../../../lib/util/source-code"),
-    Traverser = require("../../../lib/util/traverser");
+    Traverser = require("eslint-scope").Traverser;
 
 //------------------------------------------------------------------------------
 // Helpers
@@ -37,7 +37,9 @@ const DEFAULT_CONFIG = {
 function createSourceCode(text) {
     const ast = espree.parse(text, DEFAULT_CONFIG);
 
-    new Traverser().traverse(ast, {
+    const traverser = new Traverser();
+
+    traverser.traverse(ast, {
         enter(node, parent) {
             node.parent = parent;
         }

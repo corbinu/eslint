@@ -12,7 +12,7 @@ const assert = require("assert"),
     EventEmitter = require("events").EventEmitter,
     sinon = require("sinon"),
     espree = require("espree"),
-    estraverse = require("estraverse"),
+    Traverser = require("eslint-scope").Traverser,
     EventGeneratorTester = require("../../../lib/testers/event-generator-tester"),
     NodeEventGenerator = require("../../../lib/util/node-event-generator");
 
@@ -89,7 +89,9 @@ describe("NodeEventGenerator", () => {
 
             emitter.emit = (selector, node) => emissions.push([selector, node]);
 
-            estraverse.traverse(ast, {
+            const traverser = new Traverser();
+
+            traverser.traverse(ast, {
                 enter(node, parent) {
                     node.parent = parent;
                     generator.enterNode(node);

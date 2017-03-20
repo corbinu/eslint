@@ -42,7 +42,6 @@
     "eslint-scope": "^3.6.0",
     "espree": "^3.4.0",
     "esquery": "^1.0.0",
-    "estraverse": "^4.2.0",
     "esutils": "^2.0.2",
     "file-entry-cache": "^2.0.0",
     "glob": "^7.0.3",
